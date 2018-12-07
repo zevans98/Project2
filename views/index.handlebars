@@ -22,7 +22,9 @@
             <a href="example/{{this.id}}">{{this.text}}</a>
             <button class="btn btn-danger float-right delete">ｘ</button>
           </li>
-             <form action="action_page.php">
+           
+          {{/each}}
+            <form action="action_page.php">
              
               
                 <div class="container">
@@ -33,7 +35,6 @@
                   <input type="password" placeholder="Enter Password" name="psw" required>
               
                   <button type="submit">Login</button>
-          {{/each}}
         </ul>
       </div>
     </div>
