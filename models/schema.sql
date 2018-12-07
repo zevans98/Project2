@@ -3,12 +3,3 @@ CREATE DATABASE exampledb;
 
 DROP DATABASE IF EXISTS testdb;
 CREATE DATABASE testdb;
-
-CREATE TABLE calorie (
-
-    name VARCHAR(100) NOT NULL,
-
-    id INT NOT NULL AUTO_INCREMENT,
-
-    
-)
