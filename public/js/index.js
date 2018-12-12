@@ -1,47 +1,47 @@
 // Get references to page elements
-var $exampleText = $("#example-text");
-var $exampleDescription = $("#example-description");
+var $food = $("#food");
+var $calories = $("#calories");
 var $submitBtn = $("#submit");
-var $exampleList = $("#example-list");
+var $entryList = $("#entry-list");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
-  saveExample: function(example) {
+  saveEntry: function(entry) {
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
       },
       type: "POST",
-      url: "api/examples",
-      data: JSON.stringify(example)
+      url: "api/foods",
+      data: JSON.stringify(entry)
     });
   },
-  getExamples: function() {
+  getEntries: function() {
     return $.ajax({
-      url: "api/examples",
+      url: "api/foods",
       type: "GET"
     });
   },
-  deleteExample: function(id) {
+  deleteEntry: function(id) {
     return $.ajax({
-      url: "api/examples/" + id,
+      url: "api/foods/" + id,
       type: "DELETE"
     });
   }
 };
 
 // refreshExamples gets new examples from the db and repopulates the list
-var refreshExamples = function() {
-  API.getExamples().then(function(data) {
-    var $examples = data.map(function(example) {
+var refreshEntries = function() {
+  API.getEntries().then(function(data) {
+    var $entries = data.map(function(entry) {
       var $a = $("<a>")
-        .text(example.text)
-        .attr("href", "/example/" + example.id);
+        .text("Food: " + entry.food + "; Calories: " + entry.calories)
+        .attr("href", "/food/" + entry.id);
 
       var $li = $("<li>")
         .attr({
           class: "list-group-item",
-          "data-id": example.id
+          "data-id": entry.id
         })
         .append($a);
 
@@ -54,8 +54,8 @@ var refreshExamples = function() {
       return $li;
     });
 
-    $exampleList.empty();
-    $exampleList.append($examples);
+    $entryList.empty();
+    $entryList.append($entries);
   });
 };
 
@@ -63,23 +63,22 @@ var refreshExamples = function() {
 // Save the new example to the db and refresh the list
 var handleFormSubmit = function(event) {
   event.preventDefault();
-
-  var example = {
-    text: $exampleText.val().trim(),
-    description: $exampleDescription.val().trim()
+  var entry = {
+    food: $food.val().trim(),
+    calories: parseInt($calories.val().trim())
   };
 
-  if (!(example.text && example.description)) {
-    alert("You must enter an example text and description!");
+  if (!(entry.food && entry.calories)) {
+    alert("You must enter a food and a number for the calories");
     return;
   }
 
-  API.saveExample(example).then(function() {
-    refreshExamples();
+  API.saveEntry(entry).then(function() {
+    refreshEntries();
   });
 
-  $exampleText.val("");
-  $exampleDescription.val("");
+  $food.val("");
+  $calories.val("");
 };
 
 // handleDeleteBtnClick is called when an example's delete button is clicked
@@ -89,11 +88,11 @@ var handleDeleteBtnClick = function() {
     .parent()
     .attr("data-id");
 
-  API.deleteExample(idToDelete).then(function() {
-    refreshExamples();
+  API.deleteEntry(idToDelete).then(function() {
+    refreshEntries();
   });
 };
 
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
-$exampleList.on("click", ".delete", handleDeleteBtnClick);
+$entryList.on("click", ".delete", handleDeleteBtnClick);
