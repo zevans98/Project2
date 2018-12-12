@@ -6,36 +6,25 @@
         <h2>This is our Home Page!</h2>
         <form class="clearfix mb-4" action="POST">
           <div class="form-group">
-            <label for="example-text">Example Text</label>
-            <input type="text" id="example-text" class="form-control" aria-describedby="example-text" placeholder="Enter Example Text">
+            <label for="example-text">Food</label>
+            <input type="text" id="food" class="form-control" aria-describedby="food" placeholder="Enter the Food">
           </div>
           <div class="form-group">
-            <label for="example-description">Example Description</label>
-            <textarea class="form-control" id="example-description" aria-describedby="example-description" placeholder="Enter Example Description"></textarea>
+            <label for="example-text">Calories</label>
+            <input type="text" id="calories" class="form-control" aria-describedby="calories" placeholder="Enter the Calories">
           </div>
           <button id="submit" class="btn btn-primary float-right">Submit</button>
         </form>
-        <h3>Examples:</h3>
-        <ul id="example-list" class="list-group">
-          {{#each examples}}
+        <h3>Entries:</h3>
+        <ul id="entry-list" class="list-group">
+          {{#each entries}}
           <li data-id="{{this.id}}" class="list-group-item">
-            <a href="example/{{this.id}}">{{this.text}}</a>
+            <a href="entry/{{this.id}}">Food: {{this.food}}; Calories: {{this.calories}}</a>
             <button class="btn btn-danger float-right delete">ｘ</button>
           </li>
 
           {{/each}}
-          <form action="action_page.php">
-
-
-            <div class="container">
-              <label for="uname"><b>Username</b></label>
-              <input type="text" placeholder="Enter Username" name="uname" required>
-
-              <label for="psw"><b>Password</b></label>
-              <input type="password" placeholder="Enter Password" name="psw" required>
-
-              <button type="submit">Login Name</button>
-          </form>
+          
         </ul>
       </div>
     </div>
