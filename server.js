@@ -4,6 +4,7 @@ var exphbs = require("express-handlebars");
 var passport = require("passport");
 var session = require("express-session");
 var bodyParser = require("body-parser");
+var moment = require("moment");
 var env = require("dotenv").load();
 
 var db = require("./models");
@@ -27,13 +28,15 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
-// Handlebars
-app.engine(
-  "handlebars",
-  exphbs({
-    defaultLayout: "main"
-  })
-);
+var hbs = exphbs.create({
+  // Specify helpers which are only registered on this instance.
+  helpers: {
+    moment: require("helper-moment")
+  },
+  defaultLayout: "main"
+});
+
+app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
 // Routes

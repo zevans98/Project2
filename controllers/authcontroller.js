@@ -13,11 +13,11 @@ exports.dashboard = function(req, res) {
   db.Food.findAll({
     where: {
       userId: req.user.id
-    }
-  }).then(function(dbExamples) {
+    },
+    order: db.Food.sequelize.literal("date DESC")
+  }).then(function(data) {
     res.render("index", {
-      msg: "Welcome!",
-      entries: dbExamples
+      entries: data
     });
   });
 };

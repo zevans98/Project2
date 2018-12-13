@@ -1,4 +1,5 @@
 var db = require("../models");
+var moment = require("moment");
 
 module.exports = function(app) {
   // Get all examples
@@ -6,8 +7,14 @@ module.exports = function(app) {
     db.Food.findAll({
       where: {
         userId: req.user.id
-      }
+      },
+      order: db.Food.sequelize.literal("date DESC")
     }).then(function(dbFoods) {
+      for (var i = 0; i < dbFoods.length; i++) {
+        dbFoods[i].dataValues.date = moment(dbFoods[i].dataValues.date).format(
+          "dddd, MMM DD, YYYY"
+        );
+      }
       res.json(dbFoods);
     });
   });
@@ -15,6 +22,7 @@ module.exports = function(app) {
   // Create a new example
   app.post("/api/foods", function(req, res) {
     req.body.userId = req.user.id;
+    req.body.date = moment(req.body.date).format("YYYY-MM-DD");
     db.Food.create(req.body).then(function(dbFood) {
       res.json(dbFood);
     });
