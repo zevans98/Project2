@@ -38,20 +38,12 @@
         </form>
         <h3>Food and Calories consumed:</h3>
         <ul id="example-list" class="list-group">
-          {{#each examples}}
+          {{#each entries}}
           <li data-id="{{this.id}}" class="list-group-item">
-            <a href="example/{{this.id}}">{{this.text}}</a>
+            <a href="entry/{{this.id}}">Food: {{this.food}}; Calories: {{this.calories}}</a>
             <button class="btn btn-danger float-right delete">ｘ</button>
           </li>
           {{/each}}
-          <form action="action_page.php">
-
-
-            
-      </div>
-    </div>
-  </form>
-</div>
         </ul>
       </div>
     </div>
