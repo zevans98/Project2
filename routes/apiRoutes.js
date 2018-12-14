@@ -34,4 +34,10 @@ module.exports = function(app) {
       res.json(dbFood);
     });
   });
+
+app.get('/api/cal',function(req,res) {
+db.Food.findAll({ where: { userId: req.user.id , calories:{gt:1}} }).then(function(dbFood){
+  res.json(dbFood);
+ });
+});
 };
