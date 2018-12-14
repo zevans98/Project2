@@ -40,4 +40,4 @@ db.Food.findAll({ where: { userId: req.user.id , calories:{gt:1}} }).then(functi
   res.json(dbFood);
  });
 });
-
+};
