@@ -44,7 +44,7 @@ var refreshEntries = function() {
             "; Date: " +
             entry.date
         )
-        .attr("href", "/food/" + entry.id);
+        .attr("href", "/entry/" + entry.id);
 
       var $li = $("<li>")
         .attr({
