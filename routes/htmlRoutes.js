@@ -1,4 +1,5 @@
 var db = require("../models");
+var auth = require("./auth.js");
 
 module.exports = function(app) {
   // Load index page
@@ -12,10 +13,11 @@ module.exports = function(app) {
   });
 
   // Load example page and pass in an example by id
-  app.get("/entry/:id", function(req, res) {
-    db.Food.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
-      res.render("example", {
-        example: dbExample
+  app.get("/entry/:id", isLoggedIn, function(req, res) {
+    db.Food.findOne({ where: { id: req.params.id } }).then(function(dbFoods) {
+      console.log(dbFoods.dataValues);
+      res.render("entry", {
+        entry: dbFoods.dataValues
       });
     });
   });
@@ -25,3 +27,11 @@ module.exports = function(app) {
     res.render("404");
   });
 };
+
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+
+  res.redirect("/signin");
+}
