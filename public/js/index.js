@@ -1,6 +1,7 @@
 // Get references to page elements
 var $food = $("#food");
 var $calories = $("#calories");
+var $date = $("#date");
 var $submitBtn = $("#submit");
 var $entryList = $("#entry-list");
 
@@ -35,7 +36,14 @@ var refreshEntries = function() {
   API.getEntries().then(function(data) {
     var $entries = data.map(function(entry) {
       var $a = $("<a>")
-        .text("Food: " + entry.food + "; Calories: " + entry.calories)
+        .text(
+          "Food: " +
+            entry.food +
+            "; Calories: " +
+            entry.calories +
+            "; Date: " +
+            entry.date
+        )
         .attr("href", "/food/" + entry.id);
 
       var $li = $("<li>")
@@ -65,7 +73,8 @@ var handleFormSubmit = function(event) {
   event.preventDefault();
   var entry = {
     food: $food.val().trim(),
-    calories: parseInt($calories.val().trim())
+    calories: parseInt($calories.val().trim()),
+    date: $date.val().trim()
   };
 
   if (!(entry.food && entry.calories)) {
@@ -79,6 +88,7 @@ var handleFormSubmit = function(event) {
 
   $food.val("");
   $calories.val("");
+  $date.val("");
 };
 
 // handleDeleteBtnClick is called when an example's delete button is clicked

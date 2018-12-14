@@ -23,27 +23,31 @@
   <div class="container">
     <div class="row">
       <div class="col-8 offset-2">
-        <h1 class="text-center"> My CalPal</h1>
+        <h1 class="text-center">My CalPal</h1>
         <h2>The App where you can track what you have eated and the Calories you have</h2>
         <form class="clearfix mb-4" action="POST">
           <div class="form-group">
-            <label for="example-text">Food Partook</label>
-            <input type="text" id="example-text" class="form-control" aria-describedby="example-text" placeholder="Enter Food Partook">
+            <label for="food">Food Partook</label>
+            <input type="text" id="food" class="form-control" aria-describedby="food" placeholder="Enter Food Partook">
           </div>
           <div class="form-group">
-            <label for="example-description">Calories Consumed</label>
-            <textarea class="form-control" id="example-description" aria-describedby="example-description" placeholder="Enter Calories Consumed"></textarea>
+            <label for="calories">Calories Consumed</label>
+            <input type="text" id="calories" class="form-control" aria-describedby="calories" placeholder="Enter Calories Consumed">
+          </div>
+          <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" id="date" class="form-control" aria-describedby="date" placeholder="What day did you eat it? (MM/dd/yyyy)">
           </div>
           <button id="submit" class="btn btn-primary float-right">Submit</button>
         </form>
         <h3>Food and Calories consumed:</h3>
-        <ul id="example-list" class="list-group">
+        <ul id="entry-list" class="list-group">
           {{#each entries}}
           <li data-id="{{this.id}}" class="list-group-item">
-            <a href="entry/{{this.id}}">Food: {{this.food}}; Calories: {{this.calories}}</a>
+            <a href="entry/{{this.id}}">Food: {{this.food}}; Calories: {{this.calories}}; Date: {{moment this.date "dddd, MMM DD, YYYY"}}</a>
             <button class="btn btn-danger float-right delete">ｘ</button>
           </li>
-          {{/each}}
+          {{/each}}          
         </ul>
       </div>
     </div>
