@@ -28,6 +28,12 @@ var API = {
       url: "api/foods/" + id,
       type: "DELETE"
     });
+  },
+  displayCalories: function(){
+    return $.ajax({
+      url: "api/cal",
+      type: "GET"
+    });
   }
 };
 
@@ -103,6 +109,45 @@ var handleDeleteBtnClick = function() {
   });
 };
 
+API.displayCalories().then(function(response){
+
+  console.log('AN ARRAY', response);
+  var total = 0;
+  for ( i = 0; i < response.length; i++ ) {
+    
+      total += response[i].calories;
+     console.log('This is TOTAL',total);
+     
+  };
+
+  console.log(total);
+  document.getElementById('displayCalories').innerHTML = total;
+});
+
+function refreshCalories(){
+  API.displayCalories().then(function(response){
+
+    console.log('AN ARRAY', response);
+    var total = 0;
+    for ( i = 0; i < response.length; i++ ) {
+      
+        total += response[i].calories;
+       console.log('This is TOTAL',total);
+       
+    };
+  
+    console.log(total);
+    document.getElementById('displayCalories').innerHTML = total;
+  });
+}
+
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
 $entryList.on("click", ".delete", handleDeleteBtnClick);
+
+$submitBtn.on("click", refreshCalories);
+
+
+
+
+
