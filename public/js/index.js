@@ -90,6 +90,7 @@ var handleFormSubmit = function(event) {
 
   API.saveEntry(entry).then(function() {
     refreshEntries();
+    refreshCalories();
   });
 
   $food.val("");
@@ -145,7 +146,7 @@ function refreshCalories(){
 $submitBtn.on("click", handleFormSubmit);
 $entryList.on("click", ".delete", handleDeleteBtnClick);
 
-$submitBtn.on("click", refreshCalories);
+
 
 
 
